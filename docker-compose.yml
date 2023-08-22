@@ -1,0 +1,25 @@
+version: '2'
+services:
+  web:
+    image: good_habits/application
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    networks:
+      - back
+    depends_on:
+      - database
+  database:
+    image: good_habits/database
+    build:
+      context: database
+      dockerfile: ./database.Dockerfile
+    ports:
+      - "5432:5432"
+    networks:
+      - back
+networks:
+  back:
+    driver: bridge
