@@ -1,23 +1,23 @@
-from typing import Union
+# from typing import Union
 
 from pydantic import BaseModel
 
 
-class PlayerBase(BaseModel):
-    full_name: str
-    play_position: Union[str, None] = None
+# class PlayerBase(BaseModel):
+#     full_name: str
+#     play_position: Union[str, None] = None
 
 
-class PlayerCreate(PlayerBase):
-    pass
+# class PlayerCreate(PlayerBase):
+#     pass
 
 
-class Player(PlayerBase):
-    id: int
-    manager_id: int
+# class Player(PlayerBase):
+#     id: int
+#     manager_id: int
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class UserBase(BaseModel):
@@ -31,7 +31,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    players: list[Player] = []
+    # players: list[Player] = []
 
     class Config:
         orm_mode = True

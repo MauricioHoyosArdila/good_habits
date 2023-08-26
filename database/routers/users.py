@@ -34,8 +34,8 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.post("/{user_id}/players/", response_model=schemas.Player)
-def create_item_for_user(
-    user_id: int, player: schemas.PlayerCreate, db: Session = Depends(get_db)
-):
-    return crud.create_user_player(db=db, player=player, user_id=user_id)
+# @router.post("/{user_id}/players/", response_model=schemas.Player)
+# def create_item_for_user(
+#     user_id: int, player: schemas.PlayerCreate, db: Session = Depends(get_db)
+# ):
+#     return crud.create_user_player(db=db, player=player, user_id=user_id)

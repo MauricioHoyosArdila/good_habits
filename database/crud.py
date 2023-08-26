@@ -24,13 +24,13 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
-def get_players(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Player).offset(skip).limit(limit).all()
+# def get_players(db: Session, skip: int = 0, limit: int = 100):
+#     return db.query(models.Player).offset(skip).limit(limit).all()
 
 
-def create_user_player(db: Session, player: schemas.PlayerCreate, user_id: int):
-    db_player = models.Player(**player.dict(), manager_id=user_id)
-    db.add(db_player)
-    db.commit()
-    db.refresh(db_player)
-    return db_player
+# def create_user_player(db: Session, player: schemas.PlayerCreate, user_id: int):
+#     db_player = models.Player(**player.dict(), manager_id=user_id)
+#     db.add(db_player)
+#     db.commit()
+#     db.refresh(db_player)
+#     return db_player

@@ -15,12 +15,12 @@ class User(Base):
     players = relationship("Player", back_populates="manager")
 
 
-class Player(Base):
-    __tablename__ = "players"
+# class Player(Base):
+#     __tablename__ = "players"
 
-    id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String, index=False)
-    play_position = Column(String, index=True)
-    manager_id = Column(Integer, ForeignKey("users.id"))
+#     id = Column(Integer, primary_key=True, index=True)
+#     full_name = Column(String, index=False)
+#     play_position = Column(String, index=True)
+#     manager_id = Column(Integer, ForeignKey("users.id"))
 
-    manager = relationship("User", back_populates="players")
+#     manager = relationship("User", back_populates="players")
