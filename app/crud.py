@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 
-from . import models, schemas
+from . import schemas
+
+from database import models
 
 
 def get_user(db: Session, user_id: int):
@@ -16,12 +18,20 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: schemas.UserCreate):
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    if user.password == user.password_confirmation:
+        db_user = models.User(email=user.email,
+                              hashed_password=user.password,
+                              name=user.name,
+                              lastname=user.lastname,
+                              age=user.age,
+                              phone_number=user.phone_number,
+                              user_name=user.user_name)
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+    else:
+        return schemas.ErrorMessage(message="las contraseñas no coinciden", title="malas contraseñas", code_error=403)
 
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):

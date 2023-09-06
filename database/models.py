@@ -1,5 +1,5 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, Integer, String
+# from sqlalchemy.orm import relationship
 
 from .database import Base
 
@@ -11,8 +11,12 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-
-    players = relationship("Player", back_populates="manager")
+    name = Column(String)
+    lastname = Column(String)
+    age = Column(Integer)
+    phone_number = Column(String, unique=True)
+    user_name = Column(String, unique=True, index=True)
+    # players = relationship("Player", back_populates="manager")
 
 
 # class Player(Base):

@@ -1,8 +1,10 @@
 from fastapi import Depends, APIRouter, HTTPException
+from typing import Union
 from sqlalchemy.orm import Session
 
-from .. import crud, models, schemas
-from ..database import engine, get_db
+from .. import crud, schemas
+from database.database import engine, get_db
+from database import models
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -12,7 +14,7 @@ router = APIRouter(
   responses={404: {"description": "Not found"}},
 )
 
-@router.post("/", response_model=schemas.User)
+@router.post("/", response_model=Union[schemas.User, schemas.ErrorMessage])
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:

@@ -26,6 +26,12 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    password_confirmation: str
+    name: str
+    lastname: str
+    age: int
+    phone_number: str
+    user_name: str
 
 
 class User(UserBase):
@@ -35,3 +41,9 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class ErrorMessage(BaseModel):
+    message: str
+    title: str
+    code_error: int
