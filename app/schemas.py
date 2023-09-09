@@ -47,3 +47,14 @@ class ErrorMessage(BaseModel):
     message: str
     title: str
     code_error: int
+
+
+class CalendarioBase(BaseModel):
+    nombre: str
+
+class CreateCalendario(CalendarioBase):
+    user_email: str
+
+class Calendario(CalendarioBase):
+    id: int
+    nombre: str
