@@ -47,3 +47,11 @@ class ErrorMessage(BaseModel):
     message: str
     title: str
     code_error: int
+
+
+class HabitosBase(BaseModel):
+    name: str
+    descripcion: str
+    aprendizaje: str
+    dificultad: str
+    tags: list
