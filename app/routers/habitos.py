@@ -15,7 +15,8 @@ router = APIRouter(
 )
 
 @router.post("/", response_model=Union[schemas.HabitosBase, schemas.ErrorMessage])
-def create_habitos(habitos: schemas.HabitosBase, db: Session = Depends(get_db)):
-    db_habitos = crud.get_all_tags_by_habitos(db, habitos=habitos.tags)
-def create_tags(tags: schemas.HabitosBase, db: Session = Depends(get_db)) :
-
+def create_habitos(habitos: schemas.CrearHabitos, db: Session = Depends(get_db)):
+    tags_ids = crud.get_tags_ids_from_name(db, tags=habitos)
+    habito=crud.create_habito(db, habito=habitos)
+    crud.vincular_habitos_con_tags(db, habito=habito, tags_ids=tags_ids)
+    return schemas.HabitosBase(name=habito.name, descripcion= habito.descripcion, aprendizaje=habito.aprendizaje, dificultad=habito.dificultad)

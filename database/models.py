@@ -20,19 +20,28 @@ class User(Base):
 
 
 class Habitos(Base):
-    __tablehabitos__ = "habitos"
+    __tablename__ = "habitos"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     descripcion = Column(String)
     aprendizaje = Column(String)
-    dificulta = Column(String)
+    dificultad = Column(String)
+    habitos_tags = relationship("HabitosTags", back_populates="habitos")
+
 
 class Tags(Base):
-    __tablehabitos__ = "tags"
+    __tablename__ = "tags"
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String)
-    habito = relationship("Habitos", back_populates="manager")
+    habitos_tags = relationship("HabitosTags",back_populates="tags")
 
+class HabitosTags(Base):
+    __tablename__ = "habitos_tags"
+    id = Column(Integer, primary_key=True, index=True)
+    habitos_id = Column(Integer, ForeignKey("habitos.id"))
+    habitos = relationship("Habitos", back_populates="habitos_tags")
+    tags_id = Column(Integer, ForeignKey("tags.id"))
+    tags = relationship("Tags", back_populates="habitos_tags")
 
 # class Player(Base):
 #     __tablename__ = "players"

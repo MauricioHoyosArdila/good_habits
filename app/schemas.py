@@ -48,10 +48,14 @@ class ErrorMessage(BaseModel):
     title: str
     code_error: int
 
+class TagsBase(BaseModel):
+    titulo: str
 
 class HabitosBase(BaseModel):
     name: str
     descripcion: str
     aprendizaje: str
     dificultad: str
+
+class CrearHabitos(HabitosBase):
     tags: list
