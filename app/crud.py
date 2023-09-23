@@ -44,16 +44,20 @@ def create_tag(db:Session, tag:schemas.TagsBase):
     db.refresh(db_tag)
     return db_tag
 
-def get_tags_ids_from_name(db:Session, tags:schemas.CrearHabitos):
-    lista_tags = []
+def get_tags_ids_from_name(db: Session, tags: schemas.CrearHabitos):
+    lista_tags = set()  # Utilizamos un conjunto para evitar IDs duplicados
+    
     for tag in tags.tags:
-        db_tag=get_tags_from_name(db=db,name=tag)
+        print(tag)
+        db_tag = get_tags_from_name(db=db, name=tag)
         if db_tag:
-            lista_tags.append(db_tag.id)
+            lista_tags.add(db_tag.id)  # Usamos add() en lugar de append() para agregar al conjunto
         else:
-            db_tag=create_tag(db=db, tag=schemas.TagsBase(titulo=tag))
-            lista_tags.append(db_tag.id)
-    return lista_tags
+            db_tag = create_tag(db=db, tag=schemas.TagsBase(titulo=tag))
+            lista_tags.add(db_tag.id)
+    
+    return list(lista_tags)  # Convertimos el conjunto de nuevo en una lista antes de retornarlo
+
 
 def create_habito(db: Session, habito: schemas.CrearHabitos):
     db_habito = models.Habitos(name=habito.name,
