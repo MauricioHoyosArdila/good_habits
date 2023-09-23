@@ -58,3 +58,5 @@ class CreateCalendario(CalendarioBase):
 class Calendario(CalendarioBase):
     id: int
     nombre: str
+    user_name: str
+    email: str

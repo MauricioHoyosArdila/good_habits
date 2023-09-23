@@ -14,13 +14,15 @@ router = APIRouter(
   responses={404: {"description": "Not found"}},
 )
 
-@router.post("/", response_model=schemas.Calendario)
+@router.post("/", response_model=Union[schemas.Calendario, schemas.ErrorMessage])
 def create_calendario(calendario: schemas.CreateCalendario, db: Session = Depends(get_db)):
+    print(calendario)
     db_user = crud.get_user_by_email(db, email=calendario.user_email)
+    print(db_user)
     if db_user:
         calendario = crud.create_calendario(db=db,calendario=calendario,user=db_user.id)
         print(calendario)
-        return schemas.Calendario( nombre=calendario.nombre, id= calendario.id)
+        return schemas.Calendario( nombre=calendario.nombre, id= calendario.id,user_name=calendario.user.name, email=calendario.user.email)
     else:
         return schemas.ErrorMessage(message="el usuario no existe", title="el usuario no existe", code_error=422)
     
