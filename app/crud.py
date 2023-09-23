@@ -48,7 +48,6 @@ def get_tags_ids_from_name(db: Session, tags: schemas.CrearHabitos):
     lista_tags = set()  # Utilizamos un conjunto para evitar IDs duplicados
     
     for tag in tags.tags:
-        print(tag)
         db_tag = get_tags_from_name(db=db, name=tag)
         if db_tag:
             lista_tags.add(db_tag.id)  # Usamos add() en lugar de append() para agregar al conjunto
