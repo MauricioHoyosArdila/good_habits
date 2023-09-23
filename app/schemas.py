@@ -59,3 +59,6 @@ class HabitosBase(BaseModel):
 
 class CrearHabitos(HabitosBase):
     tags: list
+
+class Lista_Habitos(HabitosBase):
+    id: int

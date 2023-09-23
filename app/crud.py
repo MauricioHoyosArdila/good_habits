@@ -77,7 +77,11 @@ def vincular_habitos_con_tags(db:Session, habito: models.Habitos, tags_ids:list 
         db.commit()
         db.refresh(habitos_tags)
     return True
-    
+
+def get_lista_habitos(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Habitos).offset(skip).limit(limit).all()
+
+
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()
