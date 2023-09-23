@@ -59,3 +59,7 @@ class HabitosBase(BaseModel):
 
 class CrearHabitos(HabitosBase):
     tags: list
+
+class LoginUsers(BaseModel):
+    user_name: str 
+    password: str

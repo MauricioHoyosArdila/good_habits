@@ -94,6 +94,10 @@ def vincular_habitos_con_tags(db:Session, habito: models.Habitos, tags_ids:list 
         db.refresh(habitos_tags)
     return True
     
+def login_user(db:Session, login:schemas.LoginUsers):
+    user = db.query(models.User).filter(models.User.user_name == login.user_name).first()
+    # se valida la contraseña del usuario con respecto a la contraseña que nos pasaron
+
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()
