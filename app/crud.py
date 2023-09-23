@@ -16,7 +16,7 @@ def get_user_by_email(db: Session, email: str):
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
-c = r'^(?=.[A-Z])(?=.[a-z])(?=.[^a-zA-Z0-9])(?=.#).+$'
+c = r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$'
 
 
 
@@ -29,8 +29,8 @@ def create_user(db: Session, user: schemas.UserCreate):
         return schemas.ErrorMessage(message="El numero de telefono no coincide con la cantidad de digitos necesarios", title="Numero invalido", code_error=422)
     elif user.email == None or user.email == ""  or user.password == None or user.password == "" or user.name == None or user.name == "" or user.lastname == None or user.lastname == "" or user.age == None or user.age == "" or user.phone_number == None or user.phone_number == "" or user.user_name == None or user.user_name == "":   
         return schemas.ErrorMessage(message="Algunos campos estan vacios", title="Espacios vacios", code_error=422)
-    elif re.match(c, user.password):
-        return True 
+    elif not re.match(c, user.password):
+        return schemas.ErrorMessage(message="La contraseña debe cumplir con todos los requisitos", title="Contraseña incorrecta", code_error=422) 
     else: db_user = models.User(email=user.email,
         hashed_password=user.password,
         name=user.name,
@@ -38,9 +38,13 @@ def create_user(db: Session, user: schemas.UserCreate):
         age=user.age,
         phone_number=user.phone_number,
         user_name=user.user_name)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    try:
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+    except Exception as e:
+        print(e)
+        return schemas.ErrorMessage(message=str(e), title="Error", code_error=422)
     return db_user
          
     
