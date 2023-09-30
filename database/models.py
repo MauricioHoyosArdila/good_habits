@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -28,9 +28,29 @@ class Calendario(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="calendario")
 
+class Habitos(Base):
+    __tablename__ = "habitos"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    descripcion = Column(String)
+    aprendizaje = Column(String)
+    dificultad = Column(String)
+    habitos_tags = relationship("HabitosTags", back_populates="habitos")
 
 
+class Tags(Base):
+    __tablename__ = "tags"
+    id = Column(Integer, primary_key=True, index=True)
+    titulo = Column(String)
+    habitos_tags = relationship("HabitosTags",back_populates="tags")
 
+class HabitosTags(Base):
+    __tablename__ = "habitos_tags"
+    id = Column(Integer, primary_key=True, index=True)
+    habitos_id = Column(Integer, ForeignKey("habitos.id"))
+    habitos = relationship("Habitos", back_populates="habitos_tags")
+    tags_id = Column(Integer, ForeignKey("tags.id"))
+    tags = relationship("Tags", back_populates="habitos_tags")
 
 # class Player(Base):
 #     __tablename__ = "players"

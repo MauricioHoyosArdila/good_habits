@@ -60,3 +60,19 @@ class Calendario(CalendarioBase):
     nombre: str
     user_name: str
     email: str
+      
+class TagsBase(BaseModel):
+    titulo: str
+
+class HabitosBase(BaseModel):
+    name: str
+    descripcion: str
+    aprendizaje: str
+    dificultad: str
+
+class CrearHabitos(HabitosBase):
+    tags: list
+
+class LoginUsers(BaseModel):
+    user_name: str 
+    password: str
