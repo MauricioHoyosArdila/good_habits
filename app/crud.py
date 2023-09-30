@@ -34,12 +34,16 @@ def create_user(db: Session, user: schemas.UserCreate):
         return schemas.ErrorMessage(message="las contraseñas no coinciden", title="malas contraseñas", code_error=403)
 
 def create_calendario(db:Session, calendario: schemas.CreateCalendario, user:int):
-    db_calendario = models.Calendario(nombre= calendario.nombre,
-                                      user_id= user)
-    db.add(db_calendario)
-    db.commit()
-    db.refresh(db_calendario)
-    return db_calendario
+    calendario_existe=db.query(models.Calendario).filter(models.Calendario.user_id == user).first()
+    if calendario_existe:
+        return None
+    else:
+        db_calendario = models.Calendario(nombre= calendario.nombre,
+                                        user_id= user)
+        db.add(db_calendario)
+        db.commit()
+        db.refresh(db_calendario)
+        return db_calendario
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()
