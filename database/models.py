@@ -52,6 +52,14 @@ class HabitosTags(Base):
     tags_id = Column(Integer, ForeignKey("tags.id"))
     tags = relationship("Tags", back_populates="habitos_tags")
 
+class Eventos(Base):
+   __tablename__ = "eventos_calendario"   
+   id = Column(Integer, primary_key=True, index=True) 
+   nombre_evento = Column(String)
+   descripcion_evento = Column(String)
+   fecha_hora = Column(String)
+   id_habito = (Integer, ForeignKey("habitos.id"))
+
 # class Player(Base):
 #     __tablename__ = "players"
 

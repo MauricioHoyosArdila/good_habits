@@ -76,3 +76,11 @@ class CrearHabitos(HabitosBase):
 class LoginUsers(BaseModel):
     user_name: str 
     password: str
+
+class Eventos(BaseModel)
+    nombre_evento: str
+    id:int
+    descripcion_evento: str
+    fecha_hora: int
+    id_habito: int
+    

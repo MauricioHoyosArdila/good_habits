@@ -121,6 +121,14 @@ def create_calendario(db:Session, calendario: schemas.CreateCalendario, user:int
         db.refresh(db_calendario)
         return db_calendario
 
+def eventos_calendario(db:Session, evento:schemas.Eventos):
+    db_eventos = models.Eventos (nombre= evento.nombre_evento,
+                                descripcion= evento.descripcion_evento
+                                fecha_hora= evento.fecha_hora
+                                id_habito= evento.id_habito)
+    
+
+    
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()
 
