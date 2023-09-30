@@ -35,7 +35,10 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-
+@router.post("/login", response_model=Union[schemas.User, schemas.ErrorMessage])
+def login_user(login:schemas.LoginUsers, db: Session = Depends(get_db)):
+    users = crud.login_user(db, login=login)
+    return users
 # @router.post("/{user_id}/players/", response_model=schemas.Player)
 # def create_item_for_user(
 #     user_id: int, player: schemas.PlayerCreate, db: Session = Depends(get_db)
