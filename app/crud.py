@@ -95,7 +95,18 @@ def vincular_habitos_con_tags(db:Session, habito: models.Habitos, tags_ids:list 
     return True
     
 def login_user(db:Session, login:schemas.LoginUsers):
-    user = db.query(models.User).filter(models.User.user_name == login.user_name).first()
+    if  login.user_name == None or login.user_name == "" or login.password == None or login.password == "":
+        return schemas.ErrorMessage(message="Algunos campos estan vacios", title="Espacios vacios", code_error=422)
+    else:
+        user = db.query(models.User).filter(models.User.user_name == login.user_name).first()
+        if login.password == user.hashed_password:
+            return user
+        else: 
+            return schemas.ErrorMessage(message="Contraseña invalida", title="mala contraseña", code_error=422)
+    
+    
+
+
     # se valida la contraseña del usuario con respecto a la contraseña que nos pasaron
 
 
