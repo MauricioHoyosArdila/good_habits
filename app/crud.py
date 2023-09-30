@@ -109,6 +109,17 @@ def login_user(db:Session, login:schemas.LoginUsers):
 
     # se valida la contraseña del usuario con respecto a la contraseña que nos pasaron
 
+def create_calendario(db:Session, calendario: schemas.CreateCalendario, user:int):
+    calendario_existe=db.query(models.Calendario).filter(models.Calendario.user_id == user).first()
+    if calendario_existe:
+        return None
+    else:
+        db_calendario = models.Calendario(nombre= calendario.nombre,
+                                        user_id= user)
+        db.add(db_calendario)
+        db.commit()
+        db.refresh(db_calendario)
+        return db_calendario
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()

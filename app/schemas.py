@@ -48,6 +48,19 @@ class ErrorMessage(BaseModel):
     title: str
     code_error: int
 
+
+class CalendarioBase(BaseModel):
+    nombre: str
+
+class CreateCalendario(CalendarioBase):
+    user_email: str
+
+class Calendario(CalendarioBase):
+    id: int
+    nombre: str
+    user_name: str
+    email: str
+      
 class TagsBase(BaseModel):
     titulo: str
 

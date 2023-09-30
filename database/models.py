@@ -16,8 +16,17 @@ class User(Base):
     age = Column(Integer)
     phone_number = Column(String, unique=True)
     user_name = Column(String, unique=True, index=True)
+    calendario = relationship("Calendario", back_populates="user")
     # players = relationship("Player", back_populates="manager")
 
+
+class Calendario(Base):
+    __tablename__ = "calendarios"    
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="calendario")
 
 class Habitos(Base):
     __tablename__ = "habitos"
