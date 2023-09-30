@@ -16,7 +16,9 @@ router = APIRouter(
 
 @router.post("/", response_model=Union[schemas.Calendario, schemas.ErrorMessage])
 def create_calendario(calendario: schemas.CreateCalendario, db: Session = Depends(get_db)):
+    print(calendario)
     db_user = crud.get_user_by_email(db, email=calendario.user_email)
+    print(db_user)
     if db_user:
         calendario = crud.create_calendario(db=db,calendario=calendario,user=db_user.id)
         if calendario:
