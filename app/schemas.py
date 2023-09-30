@@ -56,9 +56,19 @@ class HabitosBase(BaseModel):
     descripcion: str
     aprendizaje: str
     dificultad: str
+    id:int
 
 class CrearHabitos(HabitosBase):
     tags: list
 
 class Lista_Habitos(HabitosBase):
     id: int
+
+class Tareas(BaseModel):
+    id: int
+    name: str
+    descripcion: str
+    regularidad: int
+    dias: int
+    dificultad: str
+    habitos_id: int

@@ -81,6 +81,18 @@ def vincular_habitos_con_tags(db:Session, habito: models.Habitos, tags_ids:list 
 def get_lista_habitos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Habitos).offset(skip).limit(limit).all()
 
+def create_tareas(db: Session, tareas: schemas.Tareas):
+    db_tareas = models.Tareas(name=tareas.name,
+                              descripcion=tareas.descripcion,
+                              regularidad=tareas.regularidad,
+                              dias=tareas.dias,
+                              dificultad=tareas.dificultad)
+    db.add(db_tareas)
+    db.commit()
+    db.refresh(db_tareas)
+    return db_tareas
+
+
 
 
 # def get_players(db: Session, skip: int = 0, limit: int = 100):

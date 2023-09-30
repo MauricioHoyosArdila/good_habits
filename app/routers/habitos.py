@@ -19,7 +19,7 @@ def create_habitos(habitos: schemas.CrearHabitos, db: Session = Depends(get_db))
     tags_ids = crud.get_tags_ids_from_name(db, tags=habitos)
     habito=crud.create_habito(db, habito=habitos)
     crud.vincular_habitos_con_tags(db, habito=habito, tags_ids=tags_ids)
-    return schemas.HabitosBase(name=habito.name, descripcion= habito.descripcion, aprendizaje=habito.aprendizaje, dificultad=habito.dificultad)
+    return schemas.HabitosBase(name=habito.name, descripcion= habito.descripcion, aprendizaje=habito.aprendizaje, dificultad=habito.dificultad, id=habito.id)
 
 @router.get("/", response_model=list[schemas.Lista_Habitos])
 def lista_habitos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):

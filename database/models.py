@@ -26,6 +26,7 @@ class Habitos(Base):
     descripcion = Column(String)
     aprendizaje = Column(String)
     dificultad = Column(String)
+    tareas = relationship("Tareas", back_populates="habitos")
     habitos_tags = relationship("HabitosTags", back_populates="habitos")
 
 
@@ -42,6 +43,21 @@ class HabitosTags(Base):
     habitos = relationship("Habitos", back_populates="habitos_tags")
     tags_id = Column(Integer, ForeignKey("tags.id"))
     tags = relationship("Tags", back_populates="habitos_tags")
+
+class Tareas(Base):
+    __tablename__ = "tareas"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    descripcion = Column(String)
+    regularidad = Column(Integer)
+    dias = Column(String)
+    dificultad = Column(String)
+    habitos_id = Column(Integer, ForeignKey("habitos.id"))
+    habitos = relationship("Habitos", back_populates="tareas")
+
+
+
+
 
 # class Player(Base):
 #     __tablename__ = "players"
