@@ -82,17 +82,21 @@ def get_lista_habitos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Habitos).offset(skip).limit(limit).all()
 
 def create_tareas(db: Session, tareas: schemas.Tareas):
-    db_tareas = models.Tareas(name=tareas.name,
-                              descripcion=tareas.descripcion,
-                              regularidad=tareas.regularidad,
-                              dias=tareas.dias,
-                              dificultad=tareas.dificultad,
-                              habitos_id=tareas.habitos_id
-                              ) 
-    db.add(db_tareas)
-    db.commit()
-    db.refresh(db_tareas)
-    return db_tareas
+    try:
+        db_tareas = models.Tareas(name=tareas.name,
+                                descripcion=tareas.descripcion,
+                                regularidad=tareas.regularidad,
+                                dias=tareas.dias,
+                                dificultad=tareas.dificultad,
+                                habitos_id=tareas.habitos_id
+                                ) 
+        db.add(db_tareas)
+        db.commit()
+        db.refresh(db_tareas)
+        return db_tareas
+    except Exception:
+        return schemas.ErrorMessage(message="Revisa los parametros", title="Error en los parametros ", code_error=422)
+
 
 
 

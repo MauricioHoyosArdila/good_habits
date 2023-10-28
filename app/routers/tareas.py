@@ -14,7 +14,10 @@ router = APIRouter(
   responses={404: {"description": "Not found"}},
 )
 
-@router.post("/", response_model=schemas.Tareas)
+@router.post("/", response_model=None)
 def create_tareas(tarea:schemas.Tareas,  db: Session = Depends(get_db)):
     tareas= crud.create_tareas(db, tarea)
-    return schemas.Tareas(name=tareas.name,descripcion=tareas.descripcion,regularidad=tareas.regularidad,dias=tareas.dias,dificultad=tareas.dificultad,id=tareas.id,habitos_id=tareas.habitos_id)
+    if type(tareas) == schemas.ErrorMessage:
+      return tareas
+    else:
+      return schemas.Tareas(name=tareas.name,descripcion=tareas.descripcion,regularidad=tareas.regularidad,dias=tareas.dias,dificultad=tareas.dificultad,id=tareas.id,habitos_id=tareas.habitos_id)
