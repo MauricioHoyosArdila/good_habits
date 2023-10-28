@@ -86,7 +86,9 @@ def create_tareas(db: Session, tareas: schemas.Tareas):
                               descripcion=tareas.descripcion,
                               regularidad=tareas.regularidad,
                               dias=tareas.dias,
-                              dificultad=tareas.dificultad)
+                              dificultad=tareas.dificultad,
+                              habitos_id=tareas.habitos_id
+                              ) 
     db.add(db_tareas)
     db.commit()
     db.refresh(db_tareas)

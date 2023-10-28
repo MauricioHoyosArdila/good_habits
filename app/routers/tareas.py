@@ -17,4 +17,4 @@ router = APIRouter(
 @router.post("/", response_model=schemas.Tareas)
 def create_tareas(tarea:schemas.Tareas,  db: Session = Depends(get_db)):
     tareas= crud.create_tareas(db, tarea)
-    return schemas.Tareas(name=tareas.name,descripcion=tareas.descripcion,regularidad=tareas.descripcion,dias=tareas.dias,dificultad=tareas.dificultad,id=tareas.id)
+    return schemas.Tareas(name=tareas.name,descripcion=tareas.descripcion,regularidad=tareas.regularidad,dias=tareas.dias,dificultad=tareas.dificultad,id=tareas.id,habitos_id=tareas.habitos_id)
