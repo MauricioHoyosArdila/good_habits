@@ -121,11 +121,17 @@ def create_calendario(db:Session, calendario: schemas.CreateCalendario, user:int
         db.refresh(db_calendario)
         return db_calendario
 
-def eventos_calendario(db:Session, evento:schemas.Eventos):
-    db_eventos = models.Eventos (nombre= evento.nombre_evento,
-                                descripcion= evento.descripcion_evento
-                                fecha_hora= evento.fecha_hora
-                                id_habito= evento.id_habito)
+def crear_eventos_calendario(db:Session, evento:schemas.Eventos):
+    db_eventos = models.Eventos (nombre_evento= evento.nombre_evento,
+                                descripcion_evento= evento.descripcion_evento,
+                                fecha_hora= evento.fecha_hora,
+                                id_habito= evento.id_habito,
+                                id_calendario= evento.id_calendario)
+    db.add(db_eventos)
+    db.commit()
+    db.refresh(db_eventos)
+    return db_eventos
+
     
 
     

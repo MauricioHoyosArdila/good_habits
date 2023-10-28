@@ -1,12 +1,14 @@
 import uvicorn
 from fastapi import FastAPI
-from .routers import users, habitos, calendarios
+from .routers import users, habitos, calendarios, eventos
 
 app = FastAPI()
 
 app.include_router(users.router)
 app.include_router(calendarios.router)
 app.include_router(habitos.router)
+app.include_router(eventos.router)
+
 # app.include_router(players.router)
 
 

@@ -27,6 +27,7 @@ class Calendario(Base):
     nombre = Column(String, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="calendario")
+    calendario_eventos = relationship("Eventos", back_populates="calendario")
 
 class Habitos(Base):
     __tablename__ = "habitos"
@@ -36,6 +37,8 @@ class Habitos(Base):
     aprendizaje = Column(String)
     dificultad = Column(String)
     habitos_tags = relationship("HabitosTags", back_populates="habitos")
+    habitos_eventos = relationship("Eventos", back_populates="habitos")
+
 
 
 class Tags(Base):
@@ -53,13 +56,15 @@ class HabitosTags(Base):
     tags = relationship("Tags", back_populates="habitos_tags")
 
 class Eventos(Base):
-   __tablename__ = "eventos_calendario"   
+   __tablename__ = "eventos"   
    id = Column(Integer, primary_key=True, index=True) 
    nombre_evento = Column(String)
    descripcion_evento = Column(String)
    fecha_hora = Column(String)
-   id_habito = (Integer, ForeignKey("habitos.id"))
-
+   id_habito = Column(Integer, ForeignKey("habitos.id"))
+   habitos = relationship("Habitos", back_populates="habitos_eventos")
+   id_calendario = Column(Integer, ForeignKey("calendarios.id"))
+   calendario = relationship("Calendario", back_populates="calendario_eventos")
 # class Player(Base):
 #     __tablename__ = "players"
 
