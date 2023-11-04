@@ -60,6 +60,7 @@ class Eventos(Base):
    id = Column(Integer, primary_key=True, index=True) 
    nombre_evento = Column(String)
    descripcion_evento = Column(String)
+   hora = Column(Integer)
    fecha_hora = Column(String)
    id_habito = Column(Integer, ForeignKey("habitos.id"))
    habitos = relationship("Habitos", back_populates="habitos_eventos")

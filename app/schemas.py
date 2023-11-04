@@ -77,8 +77,9 @@ class LoginUsers(BaseModel):
 
 class Eventos(BaseModel):
     nombre_evento: str
-    id:int
+    id: int
     descripcion_evento: str
+    hora: int|None
     fecha_hora: str
     id_habito: int
     id_calendario: int

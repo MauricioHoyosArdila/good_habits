@@ -18,7 +18,10 @@ router = APIRouter(
 def crear_evento (evento: schemas.Eventos, db: Session = Depends(get_db)):
     db_eventos = crud.crear_eventos_calendario(db, evento=evento)
     print(db_eventos)
-    if db_eventos: 
+    print (type(db_eventos))
+    if db_eventos and type(db_eventos)==models.Eventos: 
         return schemas.Eventos(nombre_evento=db_eventos.nombre_evento,id=db_eventos.id, descripcion_evento=db_eventos.id, fecha_hora=db_eventos.fecha_hora, id_habito=db_eventos.id_habito, id_calendario=db_eventos.id_calendario)
+    elif type(db_eventos) == schemas.ErrorMessage:
+        return db_eventos 
     else:
         return schemas.ErrorMessage(message="el usuario no existe", title="el usuario no existe", code_error=422)
