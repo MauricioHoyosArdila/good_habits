@@ -58,8 +58,6 @@ class CreateCalendario(CalendarioBase):
 class Calendario(CalendarioBase):
     id: int
     nombre: str
-    user_name: str
-    email: str
       
 class TagsBase(BaseModel):
     titulo: str
@@ -76,3 +74,12 @@ class CrearHabitos(HabitosBase):
 class LoginUsers(BaseModel):
     user_name: str 
     password: str
+
+class Eventos(BaseModel):
+    nombre_evento: str
+    id: int
+    descripcion_evento: str
+    hora: int|None
+    fecha_hora: str
+    id_habito: int
+    id_calendario: int

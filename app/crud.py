@@ -121,6 +121,29 @@ def create_calendario(db:Session, calendario: schemas.CreateCalendario, user:int
         db.refresh(db_calendario)
         return db_calendario
 
+def crear_eventos_calendario(db:Session, evento:schemas.Eventos):
+    print("Entre al metodo")
+    if evento.hora == "" or evento.hora == None:
+        evento.hora = 10
+        print("Puse la hora en 10")
+    if len(evento.fecha_hora.split("/")) != 3:
+        print("Tengo hambre")
+        return schemas.ErrorMessage(message="La fecha no cumple con el formato", title="Fecha incorrecta", code_error=422)
+    else:
+        db_eventos = models.Eventos (nombre_evento= evento.nombre_evento,
+                                descripcion_evento= evento.descripcion_evento,
+                                hora= evento.hora,
+                                fecha_hora= evento.fecha_hora,
+                                id_habito= evento.id_habito,
+                                id_calendario= evento.id_calendario)
+    db.add(db_eventos)
+    db.commit()
+    db.refresh(db_eventos)
+    return db_eventos
+
+    
+
+    
 # def get_players(db: Session, skip: int = 0, limit: int = 100):
 #     return db.query(models.Player).offset(skip).limit(limit).all()
 
